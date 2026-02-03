@@ -1,0 +1,21 @@
+#scan_filter_chain:
+#- name: box_filter
+#  type: laser_filters/LaserScanBoxFilter
+#  params:
+#    box_frame: laser
+#    max_x: 0.1
+#    max_y: 0.1
+#    max_z: 0.2
+#    min_x: -0.3
+#    min_y: -0.3
+#    min_z: -0.2
+#    invert: false
+
+scan_filter_chain:
+- name: polygon_filter
+  type: laser_filters/LaserScanPolygonFilter
+  params:
+#polygon_frame: base_link
+    polygon_frame: laser 
+    polygon: [[0.16, 0.175], [0.16, -0.175], [-0.25, -0.02], [-0.25, 0.02]]
+    invert: false

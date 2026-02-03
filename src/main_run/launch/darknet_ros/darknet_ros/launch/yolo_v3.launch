@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+  
+  <!-- Use YOLOv3 -->
+  <arg name="network_param_file"         default="$(find darknet_ros)/config/yolov3.yaml"/>
+  <!-- zed camera -->
+  <!-- <arg name="image" default="/zed2i/zed_node/rgb_raw/image_raw_color" /> -->
+  <!-- realsense camera -->
+  <arg name="image" default="/camera/color/image_raw" />
+
+
+  <!-- Include main launch file -->
+  <include file="$(find darknet_ros)/launch/darknet_ros.launch">
+    <arg name="network_param_file"    value="$(arg network_param_file)"/>
+    <arg name="image" value="$(arg image)" />
+  </include>
+
+</launch>

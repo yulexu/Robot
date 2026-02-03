@@ -1,0 +1,10 @@
+<launch>
+
+	<include file ="/home/linzp/catkin_op/src/rplidar_ros/launch/rplidar.launch"/>
+
+	<node pkg="odom" type="odom" name="odom" output="screen" />
+	
+	<include file ="/home/linzp/catkin_op/src/dynamixel-workbench/dynamixel_workbench_controllers/launch/dynamixel_controllers.launch" />
+	
+	<include file ="$(find laser_filters)/examples/box_filter_example.launch" />
+</launch>

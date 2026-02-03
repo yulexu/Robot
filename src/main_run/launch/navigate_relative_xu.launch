@@ -1,0 +1,15 @@
+<!--
+  相对位置导航启动文件（_xu 版本）
+  启动后可在终端输入相对位置，机器人将导航到目标
+-->
+<launch>
+  <arg name="base_frame" default="base_link" />
+  <arg name="odom_frame" default="odom" />
+  <arg name="goal_topic" default="/move_base_simple/goal" />
+  
+  <node pkg="main_run" type="navigate_relative_xu.py" name="navigate_relative_xu" output="screen">
+    <param name="base_frame" value="$(arg base_frame)" />
+    <param name="odom_frame" value="$(arg odom_frame)" />
+    <param name="goal_topic" value="$(arg goal_topic)" />
+  </node>
+</launch>

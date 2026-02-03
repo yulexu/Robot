@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+  轮式机器人 URDF（_xu 版本）
+  适配 ZED 深度障碍物层和 costmap footprint 配置
+  footprint: [[-0.275,-0.15], [-0.275,0.15], [0.15, 0.2], [0.15, -0.2]]
+-->
+
+<robot name="wheeled_robot_xu">
+  
+  <!-- 材料定义 -->
+  <material name="orange">
+    <color rgba="1.0 0.5 0.2 1" />
+  </material>
+  <material name="gray">
+    <color rgba="0.2 0.2 0.2 1" />
+  </material>
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <!-- 机器人底盘 base_link -->
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- 使用矩形近似 footprint: 长 0.425m (0.15-(-0.275)), 宽 0.4m (0.2-(-0.2)) -->
+        <box size="0.425 0.4 0.1"/>
+      </geometry>
+      <material name="orange" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- 碰撞模型：匹配 costmap footprint -->
+        <box size="0.425 0.4 0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="20.0"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.5" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="0.3"/>
+    </inertial>
+  </link>
+
+  <!-- 激光雷达（如果使用） -->
+  <link name="laser">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.02" radius="0.04" />
+      </geometry>
+      <material name="blue" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.02" radius="0.04" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="laser" />
+    <!-- 激光位置：根据实际安装调整 -->
+    <origin xyz="-0.01 0 0.160" rpy="0.0 0.0 0"/>
+  </joint>
+
+  <!-- ZED 相机（使用 xacro 宏，需要在 launch 文件中包含） -->
+  <!-- 注意：ZED 相机的 URDF 通常通过 zed_wrapper 的 launch 文件加载 -->
+  <!-- 如果需要在这里直接定义，可以取消下面的注释并调整位置 -->
+  <!--
+  <link name="zed2i_left_camera_frame">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.05 0.03"/>
+      </geometry>
+      <material name="gray" />
+    </visual>
+  </link>
+  
+  <joint name="zed_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="zed2i_left_camera_frame" />
+    <origin xyz="0.15 0 0.3" rpy="0 0 0"/>
+  </joint>
+  -->
+
+</robot>

@@ -1,0 +1,44 @@
+# ZED 深度数据作为障碍物层 - 轮式机器人安全配置（_xu 独立文件，不修改原配置）
+# 将 ZED 点云直接作为 ObstacleLayer 输入，InflationLayer 自动完成障碍物膨胀
+# 若相机名为 zed（非 zed2i），请将 zed_cloud 的 topic 改为 /zed/zed_node/point_cloud/cloud_registered，
+# sensor_frame 改为 zed_left_camera_frame
+
+# 全局障碍物与膨胀参数（轮式机器人安全边距）
+obstacle_range: 5.0
+raytrace_range: 6.0
+
+# 机器人轮廓（与 base_link 一致）
+footprint: [[-0.275,-0.15], [-0.275,0.15], [0.15, 0.2], [0.15, -0.2]]
+
+# 障碍物膨胀：轮式机器人安全边距（膨胀半径越大，规划越保守）
+inflation_radius: 0.25
+cost_scaling_factor: 3.0
+
+map_type: costmap
+
+# 观测源：ZED 点云 + 可选激光（若有）
+# 仅用 ZED 时只保留 zed_cloud；若有激光可加上 scan
+observation_sources: zed_cloud
+# observation_sources: scan zed_cloud   # 激光 + ZED 同时使用时取消上一行并启用本行
+
+# ZED 深度 → 障碍物层：直接使用 PointCloud2，保留 3D 高度过滤
+zed_cloud:
+  sensor_frame: zed2i_left_camera_frame
+  data_type: PointCloud2
+  topic: /zed2i/zed_node/point_cloud/cloud_registered
+  marking: true
+  clearing: true
+  min_obstacle_height: 0.0   # 过滤地面以下噪声
+  max_obstacle_height: 3.0   # 轮式机器人视野内障碍物高度
+  obstacle_range: 5.0
+  raytrace_range: 6.0
+  observation_persistence: 0.2
+  expected_update_rate: 10.0
+
+# 若使用激光，取消下面注释并确保 observation_sources 包含 scan
+# scan:
+#   sensor_frame: laser
+#   data_type: LaserScan
+#   topic: scan
+#   marking: true
+#   clearing: true

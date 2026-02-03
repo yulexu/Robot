@@ -1,0 +1,3 @@
+<launch>
+	<node name="rfid_publisher" pkg="rfid" type="rfid" output="screen"/>
+</launch>

@@ -1,0 +1,54 @@
+<!--
+  机器人 URDF 显示（_xu 版本）
+  支持 ZED 相机和激光雷达
+-->
+<launch>
+  <!-- 参数：选择使用哪个 URDF -->
+  <arg name="use_xacro" default="true" />
+  <arg name="use_zed" default="true" />
+  <arg name="use_laser" default="true" />
+  
+  <!-- ZED 相机位置（相对于 base_link） -->
+  <arg name="zed_x" default="0.15" />
+  <arg name="zed_y" default="0.0" />
+  <arg name="zed_z" default="0.3" />
+  <arg name="zed_roll" default="0.0" />
+  <arg name="zed_pitch" default="0.0" />
+  <arg name="zed_yaw" default="0.0" />
+  
+  <!-- 加载 URDF -->
+  <group if="$(arg use_xacro)">
+    <!-- 使用 xacro 版本（支持 ZED 宏） -->
+    <param name="robot_description" 
+           command="$(find xacro)/xacro $(find main_run)/urdf/backpack_2d_xu_with_zed.urdf.xacro
+                    camera_name:=zed2i
+                    camera_model:=zed2i
+                    use_zed:=$(arg use_zed)
+                    use_laser:=$(arg use_laser)
+                    zed_x:=$(arg zed_x)
+                    zed_y:=$(arg zed_y)
+                    zed_z:=$(arg zed_z)
+                    zed_roll:=$(arg zed_roll)
+                    zed_pitch:=$(arg zed_pitch)
+                    zed_yaw:=$(arg zed_yaw)" />
+  </group>
+  
+  <group unless="$(arg use_xacro)">
+    <!-- 使用普通 URDF 版本 -->
+    <param name="robot_description" 
+           textfile="$(find main_run)/urdf/backpack_2d_xu.urdf" />
+  </group>
+
+  <!-- 发布机器人状态 -->
+  <node name="robot_state_publisher" 
+        pkg="robot_state_publisher" 
+        type="robot_state_publisher" />
+
+  <!-- 可选：启动 RViz -->
+  <arg name="rviz" default="false" />
+  <node if="$(arg rviz)" 
+        name="rviz" 
+        pkg="rviz" 
+        type="rviz" 
+        args="-d $(find main_run)/config/robot_display.rviz" />
+</launch>

@@ -1,0 +1,12 @@
+<launch>
+    <include file="$(find realsense2_camera)/launch/rs_d435_camera_with_model.launch" />
+
+    <!-- <include file="$(find dynamixel_workbench_controllers)/launch/dynamixel_controllers.launch" /> -->
+
+    <include file="$(find darknet_ros)/launch/yolo_v3.launch" />
+
+    <!-- <include file="$(find ros_hand_gesture_recognition)/launch/hand_sign.launch" /> -->
+    
+    <include file="$(find sort_track)/launch/sort.launch" />
+
+</launch>

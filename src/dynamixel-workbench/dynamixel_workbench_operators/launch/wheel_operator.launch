@@ -1,0 +1,29 @@
+<!-- <launch>
+  <arg name="namespace"               default="dynamixel_workbench"/>
+  <arg name="lin_vel_step" default="0.02"/>
+  <arg name="ang_vel_step" default="0.2"/>
+  <arg name="max_lin_vel" default="0.8"/>  
+  <arg name="max_ang_vel" default="2.0"/>
+
+  <node name="wheel_operator" pkg="dynamixel_workbench_operators" type="wheel_operator" required="true" output="screen" ns="$(arg namespace)"/>
+    <param name="lin_vel_step" value="$(arg lin_vel_step)"/>
+    <param name="ang_vel_step" value="$(arg ang_vel_step)"/>
+    <param name="max_lin_vel" value="$(arg max_lin_vel)"/> 
+    <param name="max_ang_vel" value="$(arg max_ang_vel)"/> 
+  </node>
+</launch> -->
+<launch>
+  <arg name="namespace" default="dynamixel_workbench"/>
+  <arg name="lin_vel_step" default="0.02"/>
+  <arg name="ang_vel_step" default="0.2"/>
+  <arg name="max_lin_vel" default="0.8"/>  
+  <arg name="max_ang_vel" default="2.0"/>
+
+  <node name="wheel_operator" pkg="dynamixel_workbench_operators" type="wheel_operator" required="true" output="screen" ns="$(arg namespace)">
+    <param name="lin_vel_step" value="$(arg lin_vel_step)"/>
+    <param name="ang_vel_step" value="$(arg ang_vel_step)"/>
+    <param name="max_lin_vel" value="$(arg max_lin_vel)"/> 
+    <param name="max_ang_vel" value="$(arg max_ang_vel)"/> 
+  </node>
+</launch>
+

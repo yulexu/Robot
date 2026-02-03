@@ -1,0 +1,4 @@
+<launch>
+	<include file ="/home/linzp/catkin_op/src/dynamixel-workbench/dynamixel_workbench_controllers/launch/dynamixel_controllers.launch" />
+	<include file ="/home/linzp/catkin_op/src/dynamixel-workbench/dynamixel_workbench_operators/launch/wheel_operator.launch" />
+</launch>

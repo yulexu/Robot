@@ -1,0 +1,12 @@
+<launch>
+    <!-- 1. 启动电机控制器 -->
+    <include file="/home/linzp/catkin_op/src/dynamixel-workbench/dynamixel_workbench_controllers/launch/dynamixel_controllers.launch" />
+    
+    <!-- 2. 启动键盘控制（输出到 /cmd_vel_raw） -->
+    <include file="/home/linzp/catkin_op/src/dynamixel-workbench/dynamixel_workbench_operators/launch/wheel_operator_raw.launch">
+        <arg name="namespace" value="dynamixel_workbench"/>
+    </include>
+    
+    <!-- 3. 安全控制节点（绝对路径） -->
+    <node pkg="main_run" type="vision_safety.py" name="vision_safety_node" output="screen"/>
+</launch>

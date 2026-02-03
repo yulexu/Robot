@@ -1,0 +1,30 @@
+<!--
+  ZED 深度 → 2D 激光扫描（可选）
+  若希望得到 /scan_zed 供其他节点使用，可单独启动本 launch。
+  障碍物层可直接用 PointCloud2，无需本节点；本节点主要用于兼容或调试。
+-->
+<launch>
+  <arg name="zed_pointcloud_topic" default="/zed2i/zed_node/point_cloud/cloud_registered" />
+  <arg name="scan_topic" default="/scan_zed" />
+  <arg name="target_frame" default="zed2i_left_camera_frame" />
+
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="zed_pointcloud_to_laserscan" output="screen">
+    <remap from="cloud_in" to="$(arg zed_pointcloud_topic)" />
+    <remap from="scan" to="$(arg scan_topic)" />
+    <param name="target_frame" value="$(arg target_frame)" />
+    <rosparam>
+      transform_tolerance: 0.02
+      min_height: 0.05
+      max_height: 1.8
+      angle_min: -1.5708
+      angle_max: 1.5708
+      angle_increment: 0.0087266
+      scan_time: 0.05
+      range_min: 0.3
+      range_max: 5.0
+      use_inf: true
+      inf_epsilon: 1.0
+      concurrency_level: 1
+    </rosparam>
+  </node>
+</launch>
