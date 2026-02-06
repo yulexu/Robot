@@ -1,0 +1,8 @@
+prefix=/home/linzp/catkin_op/install
+
+Name: main_run
+Description: Description of main_run
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

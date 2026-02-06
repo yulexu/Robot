@@ -1,0 +1,8 @@
+prefix=/home/linzp/catkin_op/install
+
+Name: feetechlib
+Description: Description of feetechlib
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lfeetechlib
+Requires: roscpp rospy std_msgs

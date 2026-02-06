@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libfeetech_controller.so -o /home/linzp/catkin_op/devel/lib/libfeetech_controller.so CMakeFiles/feetech_controller.dir/src/feetech_controller.cpp.o 

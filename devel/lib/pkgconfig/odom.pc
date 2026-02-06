@@ -1,0 +1,8 @@
+prefix=/home/linzp/catkin_op/devel
+
+Name: odom
+Description: Description of odom
+Version: 0.0.0
+Cflags: -I/home/linzp/catkin_op/src/odom/include
+Libs: -L${prefix}/lib -lodom -lodommapping
+Requires: 

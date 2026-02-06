@@ -1,0 +1,8 @@
+prefix=/home/linzp/catkin_op/devel
+
+Name: feetech_controls
+Description: Description of feetech_controls
+Version: 0.0.0
+Cflags: -I/home/linzp/catkin_op/devel/include -I/home/linzp/catkin_op/src/feetech_controls/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime feetechlib roscpp rospy std_msgs controller_manager hardware_interface transmission_interface pluginlib joint_limits_interface

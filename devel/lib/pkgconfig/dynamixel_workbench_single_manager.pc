@@ -1,0 +1,8 @@
+prefix=/home/linzp/catkin_op/devel
+
+Name: dynamixel_workbench_single_manager
+Description: Description of dynamixel_workbench_single_manager
+Version: 2.0.0
+Cflags: -I/home/linzp/catkin_op/src/dynamixel-workbench/dynamixel_workbench_single_manager/include
+Libs: -L${prefix}/lib 
+Requires: roscpp dynamixel_workbench_msgs dynamixel_workbench_toolbox

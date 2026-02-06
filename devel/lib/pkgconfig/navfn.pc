@@ -1,0 +1,8 @@
+prefix=/home/linzp/catkin_op/devel
+
+Name: navfn
+Description: Description of navfn
+Version: 1.17.2
+Cflags: -I/home/linzp/catkin_op/devel/include -I/home/linzp/catkin_op/src/navigation/navfn/include
+Libs: -L${prefix}/lib -lnavfn
+Requires: geometry_msgs message_runtime nav_core nav_msgs pluginlib roscpp sensor_msgs visualization_msgs

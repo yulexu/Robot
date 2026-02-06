@@ -1,0 +1,8 @@
+prefix=/home/linzp/catkin_op/devel
+
+Name: ros_hand_gesture_recognition
+Description: Description of ros_hand_gesture_recognition
+Version: 0.0.0
+Cflags: -I/home/linzp/catkin_op/devel/include
+Libs: -L${prefix}/lib 
+Requires: 
