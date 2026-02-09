@@ -6,12 +6,12 @@
   <!-- 参数：选择使用哪个 URDF -->
   <arg name="use_xacro" default="true" />
   <arg name="use_zed" default="true" />
-  <arg name="use_laser" default="true" />
+  <arg name="use_laser" default="false" />
   
   <!-- ZED 相机位置（相对于 base_link） -->
-  <arg name="zed_x" default="0.15" />
+  <arg name="zed_x" default="-0.15" />
   <arg name="zed_y" default="0.0" />
-  <arg name="zed_z" default="0.3" />
+  <arg name="zed_z" default="1.0" />
   <arg name="zed_roll" default="0.0" />
   <arg name="zed_pitch" default="0.0" />
   <arg name="zed_yaw" default="0.0" />
@@ -20,7 +20,7 @@
   <group if="$(arg use_xacro)">
     <!-- 使用 xacro 版本（支持 ZED 宏） -->
     <param name="robot_description" 
-           command="$(find xacro)/xacro $(find main_run)/urdf/backpack_2d_xu_with_zed.urdf.xacro
+           command="$(find xacro)/xacro $(find main_run)/urdf/backpack_2d_xu.xacro
                     camera_name:=zed2i
                     camera_model:=zed2i
                     use_zed:=$(arg use_zed)

@@ -10,7 +10,7 @@ def launch(req):
 	launch = roslaunch.parent.ROSLaunchParent(uuid, ["/home/robot/catkin_ws/src/feetech_controls/launch/feetech_control_interface.launch"])
 	launch.start()
 	rospy.loginfo("started")
-    	return true
+	return True	
 
 
 def main():

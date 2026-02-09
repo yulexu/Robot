@@ -1,0 +1,48 @@
+<launch>
+  <!-- 原理：为什么需要一个单独的 launch 文件？
+       因为仿真不仅仅是“显示模型”，它需要启动一整个物理引擎（Gazebo）并把机器人放进去。
+   -->
+
+  <!-- 1. 启动 Gazebo 世界 (Empty World)
+       作用：这就像打开一个空的游戏房间。
+       原理：调用 gazebo_ros 包提供的标准启动文件，它会运行 gazeboserver (物理引擎) 和 gazeboclient (图形界面)。
+   -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_world.world"/> <!-- 这里借用了 turtlebot3 的世界，因为它有柱子可以避障 -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- 2. 加载机器人模型参数
+       作用：把刚才写的 backpack_2d_xu_test.xacro 内容读到内存里（参数服务器）。
+       原理：Gazebo 需要从这里读取模型的形状、质量、插件配置等信息。
+   -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find main_run)/urdf/backpack_2d_xu_test.xacro 
+                                           camera_name:=zed2i 
+                                           camera_model:=zed2i 
+                                           use_zed:=true
+                                           use_laser:=false" />
+
+  <!-- 3. 在 Gazebo 中生成机器人 (Spawn Model)
+       作用：在游戏房间里“变”出一个机器人来。
+       原理：调用 spawn_model 脚本，通知 Gazebo：“请在 (0,0,0) 位置根据 robot_description 参数生成一个叫 wheeled_robot 的东西”。
+   -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-urdf -model wheeled_robot -param robot_description -z 0.05" />
+
+  <!-- 4. 启动状态发布器 (Robot State Publisher)
+       作用：计算机器人的关节变换（TF）。
+       原理：它读取机器人模型和关节角度（Joint States），发布 TF 树。
+       注意：因为我们用的是“平面移动插件”，它会自动发布 base_footprint -> odom 的变换，所以这一步是为了发布 base_link -> camera, laser 等静态变换。
+   -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+  </node>
+  
+  <!-- 5. 可选：为了方便调试，可以启动 Rviz -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find main_run)/config/robot_display.rviz" /> -->
+
+</launch>

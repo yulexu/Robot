@@ -9,7 +9,7 @@ import rospy
 import tf2_ros
 import math
 from geometry_msgs.msg import PoseStamped, Quaternion
-from nav_msgs.msg import Odometry,OccupancyGrid
+from nav_msgs.msg import Odometry
 
 class RelativeNavigator:
     def __init__(self):

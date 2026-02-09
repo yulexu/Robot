@@ -1,7 +1,3 @@
-<!--
-  move_base 的 _xu 版本：使用 ZED 深度作为障碍物层（costmap_common_params_xu + local_costmap_params_xu）
-  不修改原 move_base_xu.launch，仅加载 _xu 参数文件。
--->
 <launch>
   <arg name="cmd_vel_topic" default="/dynamixel_workbench/cmd_vel"/>
   <arg name="odom_topic" default="/zed2i/zed_node/odom" />
@@ -9,11 +5,11 @@
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    
+    <rosparam file="$(find main_run)/param/costmap_common_params_xu.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find main_run)/param/costmap_common_params_xu.yaml" command="load" ns="local_costmap" />
 
-    <rosparam file="$(find main_run)/param/costmap_common_params_xu.yaml" command="load" />
     <rosparam file="$(find main_run)/param/global_costmap_params_xu.yaml" command="load" />
-
-    <rosparam file="$(find main_run)/param/costmap_common_params_xu.yaml" command="load" />
     <rosparam file="$(find main_run)/param/local_costmap_params_xu.yaml" command="load" />
 
     <rosparam file="$(find main_run)/param/move_base_params.yaml" command="load" />
@@ -21,7 +17,7 @@
 
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
-
+    
     <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
   </node>
 </launch>
