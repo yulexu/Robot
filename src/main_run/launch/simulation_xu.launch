@@ -43,6 +43,6 @@
   </node>
   
   <!-- 5. 可选：为了方便调试，可以启动 Rviz -->
-  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find main_run)/config/robot_display.rviz" /> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find main_run)/config/robot_display.rviz" /> 
 
 </launch>
